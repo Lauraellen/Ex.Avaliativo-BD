@@ -24,29 +24,39 @@ letter = {
 wj(getTeacherStartsWith(letter), '1B')
 
 # C
-
-#wj(aux, '1C')
+def getAllTheCities():
+    return db.execute_query('match (c:City) return c.name')
+wj(getAllTheCities(), '1C')
 
 # D
-
-#wj(aux, '1D')
+def getSchools():
+    return db.execute_query('match (s:School) where s.number >= 150 and s.number <= 550 return s.name, s.address, s.number')
+wj(getSchools(), '1D')
 
 # Questão 02
 # A
-
-#wj(aux, '2A')
+def getYoungestOlderTeach():
+    return db.execute_query('match (t:Teacher)  return max(t.ano_nasc) as professorMaisNovo, min(t.ano_nasc) as professorMaisVelho')
+wj(getYoungestOlderTeach(), '2A')
 
 # B
-
-#wj(aux, '2B')
+def getAvgPopulations():
+    return db.execute_query('match (c:City) return avg(c.population)')
+wj(getAvgPopulations(), '2B')
 
 # C
+def getCity(cep):
+    return db.execute_query('match (c:City) where c.cep = $cep return replace(c.name, "a", "A") as cityName', {'cep': cep['cep']})
 
-#wj(aux, '2C')
+cep = {
+    'cep': '37540-000',
+}
+wj(getCity(cep), '2C')
 
 # D
-
-#wj(aux, '2D')
+def getSubstring():
+    return db.execute_query('match (t:Teacher) return substring(t.name, 3, 1)')
+wj(getSubstring(), '2D')
 
 # Questão 03
 # A
